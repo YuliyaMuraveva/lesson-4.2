@@ -8,11 +8,17 @@ import java.util.Arrays;
 public class FlightManager {
     private FlightRepository repository;
 
-    public FlightManager(FlightRepository repository) { this.repository = repository; }
+    public FlightManager(FlightRepository repository) {
+        this.repository = repository;
+    }
 
-    public void add(Flight flight) { repository.save(flight); }
+    public void add(Flight flight) {
+        repository.save(flight);
+    }
 
-    public void removeById(int id) { repository.removeById(id); }
+    public void removeById(int id) {
+        repository.removeById(id);
+    }
 
     public Flight[] searchById(int id) {
         return repository.findById(id);
