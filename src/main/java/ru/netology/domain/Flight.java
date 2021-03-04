@@ -5,7 +5,7 @@ import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class Flight implements Comparable<Flight>{
+public class Flight implements Comparable<Flight> {
     private int id;
     private int price;
     private String departureAirport;
@@ -21,7 +21,6 @@ public class Flight implements Comparable<Flight>{
         if (this.getDepartureAirport().equalsIgnoreCase(searchDeparture) &&
                 this.getArrivalAirport().equalsIgnoreCase(searchArrival)) {
             return true;
-        }
-        else { return false; }
+        } else return false;
     }
 }

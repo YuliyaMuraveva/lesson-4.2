@@ -32,7 +32,7 @@ class FlightManagerTest {
 
     @Test
     void shouldSearchAndSort() {
-        Flight[] actual = manager.search("DME", "LED");
+        Flight[] actual = manager.findAll("DME", "LED", comparator);
         Flight[] expected = new Flight[]{moscowSpb2, moscowSpb1, moscowSpb3};
         assertArrayEquals(expected, actual);
     }
