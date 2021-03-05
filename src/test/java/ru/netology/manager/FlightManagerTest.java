@@ -3,6 +3,7 @@ package ru.netology.manager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.domain.Flight;
+import ru.netology.domain.FlightByFlightTimeAscComparator;
 import ru.netology.domain.NotFoundException;
 import ru.netology.repository.FlightRepository;
 
@@ -11,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class FlightManagerTest {
     private FlightRepository repository = new FlightRepository();
     private FlightManager manager = new FlightManager(repository);
+    private FlightByFlightTimeAscComparator comparator = new FlightByFlightTimeAscComparator();
     private Flight spbMoscow = new Flight(1, 2000, "LED", "DME", 100);
     private Flight moscowSpb1 = new Flight(2, 2500, "DME", "LED", 90);
     private Flight moscowRostov = new Flight(3, 5000, "DME", "ROV", 120);
@@ -31,29 +33,22 @@ class FlightManagerTest {
     }
 
     @Test
-    void shouldSearchAndSort() {
+    void shouldSearchAndSortByTime() {
         Flight[] actual = manager.findAll("DME", "LED", comparator);
-        Flight[] expected = new Flight[]{moscowSpb2, moscowSpb1, moscowSpb3};
-        assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    void shouldSearchAndSortInEqualsPrice() {
-        Flight[] actual = manager.search("lEd", "dmE");
-        Flight[] expected = new Flight[]{spbMoscow, spbMoscow2};
+        Flight[] expected = new Flight[]{moscowSpb2, moscowSpb3, moscowSpb1};
         assertArrayEquals(expected, actual);
     }
 
     @Test
     void shouldSearchInOne() {
-        Flight[] actual = manager.search("dme", "rov");
+        Flight[] actual = manager.findAll("dme", "rov", comparator);
         Flight[] expected = new Flight[]{moscowRostov};
         assertArrayEquals(expected, actual);
     }
 
     @Test
     void shouldSearchNotInList() {
-        Flight[] actual = manager.search("Dme", "Kzn");
+        Flight[] actual = manager.findAll("Dme", "Kzn", comparator);
         Flight[] expected = new Flight[0];
         assertArrayEquals(expected, actual);
     }
